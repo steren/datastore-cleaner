@@ -2,16 +2,19 @@
 
 Automatically clean up old Google Cloud Datastore entities.
 
-This uses a Cloud Run microservice that is privately invoked every day by a Cloud Scheduler job.
-When invoked, it queries your Cloud Datastore for entities that are older than a year and deletes them.
-The entity name and attribute containing the date must be provided as parameters.
-The number of entities and the time period can be customized.
+Serverless microservice that deletes Cloud Datastore entities that are older than a certain age (a year by default), to be run as a cron job every day (using Cloud Scheduler)
 
 ```text
 +-------------------+    +-------------+    +-------------------+
 |  Cloud Scheduler  | -> |  Cloud Run  | -> |  Cloud Datastore  |
 +-------------------+    +-------------+    +-------------------+
 ```
+
+This uses a Cloud Run microservice that is privately invoked every day by a Cloud Scheduler job.
+When invoked, it queries your Cloud Datastore for entities that are older than a year and deletes them.
+The entity name and attribute containing the date must be provided as parameters.
+The number of entities and the time period can be customized.
+
 
 ## Set up in your project
 
@@ -84,6 +87,10 @@ The number of entities and the time period can be customized.
 
     Note: for initial job deployments, you must wait a few minutes before invoking.
 
+
+## Cost
+
+Because Cloud Run bills only when a request is running and this microservice runs once a day for less than a second, the cost is basically 0.
 
 ## Query parameters
 
