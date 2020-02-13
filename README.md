@@ -23,13 +23,13 @@ The number of entities and the time period can be customized.
 1. Build into a container image using Cloud Build:
 
     ```sh
-    $ gcloud builds submit . --tag gcr.io/$PROJECT_ID/datastore-cleaner`
+    gcloud builds submit . --tag gcr.io/$PROJECT_ID/datastore-cleaner
     ```
 
 1. Deploy the image to Cloud Run:
 
     ```sh
-    $ gcloud run deploy datastore-cleaner --image gcr.io/$PROJECT_ID/datastore-cleaner --platform managed --region us-central1 --no-allow-unauthenticated
+    gcloud run deploy datastore-cleaner --image gcr.io/$PROJECT_ID/datastore-cleaner --platform managed --region us-central1 --no-allow-unauthenticated
     ```
 
 1. Create a service account with permission to invoke the Cloud Run service:
@@ -69,6 +69,7 @@ The number of entities and the time period can be customized.
         --project ${PROJECT_ID} \
         --description "Cleanup myentity" \
         --oidc-service-account-email "datastore-cleaner-invoker@${PROJECT_ID}.iam.gserviceaccount.com" \
+        --oidc-token-audience "${SERVICE_URL}" \
         --schedule "0 3 * * *"
         ```
 
