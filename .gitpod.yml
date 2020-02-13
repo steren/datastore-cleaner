@@ -1,4 +1,6 @@
 tasks:
-  - init: echo "Replace me with a build script for the project."
-    command: echo "Replace me with omething that should run on every start, or just
-      remove me entirely."
+  - init: npm install
+    command: npm run start
+ports:
+  - port: 8080
+    onOpen: open-browser
