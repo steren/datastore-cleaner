@@ -3,7 +3,7 @@ const url = require('url');
 const assert = require('assert');
 const {Datastore} = require('@google-cloud/datastore');
 
-const defaultLimit = 10;
+const defaultLimit = 100;
 const defaultDays = 365;
 
 const datastore = new Datastore();
