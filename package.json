@@ -4,6 +4,7 @@
   "description": "Clean old data in your Cloud Datastore",
   "main": "cleanup.js",
   "scripts": {
+    "run": "node run.js",
     "start": "node serve.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

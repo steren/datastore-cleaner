@@ -16,7 +16,7 @@ The entity name and attribute containing the date must be provided as parameters
 The number of entities and the time period can be customized.
 
 
-## Set up in your project
+## Deploy in your project
 
 1. Export your project ID as an environment variable. The rest of this setup assumes this environment variable is set.
     ```sh
@@ -88,13 +88,20 @@ The number of entities and the time period can be customized.
     Note: for initial job deployments, you must wait a few minutes before invoking.
 
 
+## Run as a script
+
+In addition to being available as a service, you can execute datastore-cleaner as a script (not listening for web requests)
+
+1. Build with `docker build -f run.Dockerfile -t datastore-cleaner .`
+1. Run with `docker run datastore-cleaner entity attribute days limit`, replacing `entity attribute days limit` with the parameters described below. 
+
+## Parameters
+
+* `entity`: Name of the Datastore entity to cleanup, e.g. `Book`
+* `attribute`: Name of the entity attribute that contains the date to check on, e.g. `createdOn`
+* `days` (Optional, default: 365): number of days after which the data should be deleted 
+* `limit` (Optional, default: 10): number of entities to delete each time the service is invoked.
+
 ## Cost
 
 Because Cloud Run bills only when a request is running and this microservice runs once a day for less than a second, the cost is basically 0.
-
-## Query parameters
-
-* `entity`: Name of the Datastore entity to cleanup
-* `attribute`: Name of the entity attribute that contains 
-* `days` (Optional, default: 365): number of days after which the data should be deleted 
-* `limit` (Optional, default: 10): number of entities to delete each time the service is invoked.
