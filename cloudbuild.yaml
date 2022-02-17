@@ -3,11 +3,15 @@
 steps:
 # build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/datastore-cleaner', '.']
+  args: ['build', '-t', '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/datastore-cleaner:${COMMIT_SHA}', '.']
 # push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/datastore-cleaner']
+  args: ['push', '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/datastore-cleaner:${COMMIT_SHA}']
 # Deploy container image to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ['run', 'deploy', 'datastore-cleaner', '--image', 'gcr.io/$PROJECT_ID/datastore-cleaner', '--region', 'us-central1', '--platform', 'managed', '--quiet']
-images: ['gcr.io/$PROJECT_ID/datastore-cleaner']
+  args: ['run', 'deploy', 'datastore-cleaner', '--image', '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/datastore-cleaner:${COMMIT_SHA}', '--region', '${_REGION}', '--quiet']
+
+substitutions:
+    _REGION: us-central1 # default to us-central1
+    _REPO_NAME: containers # default Artifact Registry repostory name
+images: ['${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO_NAME}/datastore-cleaner:${COMMIT_SHA}']
