@@ -12,6 +12,6 @@
   "author": "Steren Giannini steren.giannini@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/datastore": "^6.6.2"
+    "@google-cloud/datastore": "^7.5.1"
   }
 }
